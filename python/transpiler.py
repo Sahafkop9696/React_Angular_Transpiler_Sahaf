@@ -66,12 +66,6 @@ def infer_ts_type(init: str) -> str:
     return "any"
 
 
-def sanitize_init(init: str) -> str:
-    """
-    Keep initializers intact; minor touch-ups for TS compatibility.
-    """
-    return init.strip()
-
 
 def rewrite_handler_body(body: str, states: List[StateVar]) -> str:
     setters = {s.setter: s.name for s in states}
