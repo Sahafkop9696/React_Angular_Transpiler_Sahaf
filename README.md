@@ -33,7 +33,7 @@ The logic is linear and simple to debug. We ingest the file, break it down, swap
 
 ## Project Structure (The Plan for V2)
 
-Right now, this is a single script for the demo. But for a production app, I’d refactor this using a **Feature-Based** structure. It enables better organized and extensible structure.
+Right now, this is a single script for the demo. But for a production app, I’d refactor this using a **Feature-Based** structure. It enables better organization and extensibility.
 
 ```text
 /transpiler
