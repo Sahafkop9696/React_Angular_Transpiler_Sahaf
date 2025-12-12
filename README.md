@@ -2,8 +2,8 @@
 #React-to-Angular Transpiler
 
 ## What is this tool?
-This is a Python script that reads your React components, figures out the logic (like state variables and functions), and rewrites them
- into a working Angular component (TypeScript + HTML) using Regex.
+This is a Python script that reads your React components, figures out the logic (like state variables and functions), and rewrites
+ them into a working Angular component (TypeScript + HTML) using Regex.
 
 ---
 
