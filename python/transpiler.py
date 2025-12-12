@@ -35,6 +35,7 @@ def extract_use_state(source: str) -> List[StateVar]:
     return states
 
 
+# Parses React arrow-function handlers (e.g., const handleClick = () => {...}) into name/body pairs.
 def extract_handlers(source: str) -> dict:
     """
     Capture simple arrow-function handlers: const addTodo = () => { ... };
@@ -71,7 +72,7 @@ def rewrite_handler_body(body: str, states: List[StateVar]) -> str:
     setters = {s.setter: s.name for s in states}
     rewritten = body
 
-    # Replace setter calls with direct assignment (simple heuristic)
+    # Replace setter calls with direct assignment 
     for setter, var in setters.items():
         rewritten = re.sub(
             rf"{setter}\s*\(\s*\[([^\]]+)\]\s*\)",
