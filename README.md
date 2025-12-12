@@ -3,7 +3,8 @@
 
 ## What is this tool?
 This is a Python script that reads your React components, figures out the logic (like state variables and functions), and rewrites
- them into a working Angular component (TypeScript + HTML) using Regex.
+ them into a working Angular component (TypeScript + HTML) using Regex. Basically, React's Immutable, Functional State to
+ Angular's Mutable, Class-Based State.
 
 ---
 
