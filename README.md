@@ -1,19 +1,16 @@
-
 ````markdown
-# Universal React-to-Angular Transpiler
+#React-to-Angular Transpiler
 
 ## What is this tool?
 This is a Python script that reads your React components, figures out the logic (like state variables and functions), and rewrites them
-into a working Angular component (TypeScript + HTML) using Regex
+ into a working Angular component (TypeScript + HTML) using Regex.
 
 ---
 
 ## Architecture Design
 The logic is linear and simple to debug. We ingest the file, break it down, swap the syntax, and write the new files.
 
-
-
-
+```text
 +-----------------------+        +---------------------------+        +-----------------------+
 |   INPUT               |        |   PROCESSOR (Python)      |        |   OUTPUT              |
 |   React File (.jsx)   |        |                           |        |   Angular Files       |
@@ -36,7 +33,7 @@ The logic is linear and simple to debug. We ingest the file, break it down, swap
 
 ## Project Structure (The Plan for V2)
 
-Right now, this is a single script for the demo. But for a production app, I’d refactor this using a **Feature-Based** structure. This keeps things clean—if you break the event handlers, you don't accidentally kill the state logic.
+Right now, this is a single script for the demo. But for a production app, I’d refactor this using a **Feature-Based** structure. It enables better organized and extensible structure.
 
 ```text
 /transpiler
@@ -57,17 +54,17 @@ Right now, this is a single script for the demo. But for a production app, I’d
 
 ## Design Choice: Why Regex?
 
-Speed: I needed to prototype this quickly. Setting up a full parser takes a lot of config.
+**Speed:** I needed to prototype this quickly. Setting up a full parser takes a lot of config.
 
-Beginner Friendly: It relies on matching text patterns rather than deep React knowledge. You do not need to understand complex AST node types or React internals to read and modify this script.
+**Beginner Friendly:** It relies on matching text patterns rather than deep React knowledge. You do not need to understand complex AST node types or React internals to read and modify this script.
 
-No Bloat: This runs with standard Python libraries—no npm install required.
+**No Bloat:** This runs with standard Python libraries—no npm install required.
 
 -----
 
 ## Feature Support Matrix
 
- optimized for the "Happy Path"—the most common patterns you see in daily work.
+Optimized for the Happy Path
 
 | Feature | Supported (Ship it) | Unsupported (Needs Manual Fix) |
 | :--- | :--- | :--- |
@@ -78,9 +75,9 @@ No Bloat: This runs with standard Python libraries—no npm install required.
 
 -----
 
-## Limitations & "Battle-Tested" Scenarios
+## Limitations & Edge Cases
 
-Some Edge Cases that occurs in a common react development workflow
+Some edge cases that occur in a common React development workflow:
 
 | Scenario | The Problem | The Fix |
 | :--- | :--- | :--- |
@@ -90,11 +87,23 @@ Some Edge Cases that occurs in a common react development workflow
 
 -----
 
-## Fallback Strategy (Failing Gracefully)
+## Future Scope
 
-If the tool hits a block of code it doesn't understand (like a complex `.filter()` chain), it won't crash.
+### 1\. The AST Pipeline
 
-Instead, it just comments out that block and adds a "TODO" flag so we can trace un-automatable codeblocks.
+To make this production-ready, we need to move away from text matching and start using an **Abstract Syntax Tree (AST)** which can handle complex cases.
+
+**The Flow:**
+
+1.  **Parse (React AST):** Read code and turn it into a tree structure. The tool stops seeing "text" and starts understanding that `useState` is a *Hook*.
+2.  **Transform (Mapper):** Convert the React tree into an Angular tree. Map "React Hook" nodes directly to "Angular Class Property" nodes.
+3.  **Generate (Angular Code):** Feed the new Angular tree into a generator that prints out perfectly valid TypeScript code.
+
+### 2\. Planned Feature: Fallback Strategy (Failing Gracefully)
+
+*Note: This is not yet implemented.*
+
+if the tool hits a block of code it doesn't understand (like a complex `.filter()` chain), it will not crash. Instead, it will comment out that block and add a "Manual Translation Needed" flag so we can trace un-automatable codeblocks.
 
 ```typescript
 /* [!] AUTOMATION FALLBACK: Manual Conversion Needed 
@@ -102,21 +111,6 @@ Instead, it just comments out that block and adds a "TODO" flag so we can trace 
    visibleItems.filter(item => item.isActive)
 */
 ```
-
------
-
-## Future Scope: The AST Pipeline
-
-To make this production-ready, we need to move away from text matching and start using an **Abstract Syntax Tree (AST)** Which can handle complex Cases as well.
-
-**The Flow:**
-
-1.  **Parse (React AST):**
-    We read the code and turn it into a tree structure. The tool stops seeing "text" and starts understanding that `useState` is a *Hook*.
-2.  **Transform (Mapper):**
-    We convert the React tree into an Angular tree. We map the "React Hook" nodes directly to "Angular Class Property" nodes.
-3.  **Generate (Angular Code):**
-    We feed that new Angular tree into a generator that prints out perfectly valid TypeScript code.
 
 -----
 
