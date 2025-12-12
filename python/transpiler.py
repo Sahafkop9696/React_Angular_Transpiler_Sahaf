@@ -1,13 +1,5 @@
 
-"""
-Minimal React-to-Angular transpiler for the provided TodoList.jsx example.
-Uses regex-based heuristics (stdlib only) to:
-1. Parse the component name, state hooks, handlers, and JSX return block.
-2. Map useState vars to Angular class properties with basic type inference.
-3. Rewrite simple handler bodies (setters -> property assignment).
-4. Convert JSX into an Angular template (ngFor, ngModel, event bindings).
-Outputs go to an ./output folder to avoid touching the reference files.
-"""
+
 
 from __future__ import annotations
 
